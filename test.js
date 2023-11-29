@@ -15,23 +15,27 @@ let places = [
 
 const search = (searchString) => {
     const result = [];
+    let map = {}
     if(!searchString) return result
 
+    for (const place of places) {
+        const {Id} = place
+        map[Id] = place
+    }
 
     for (let i = 0; i < places.length; i++) {
         const {Name, ParentID} = places[i]
         if(Name.toLowerCase().includes(searchString.toLowerCase())){
             if(ParentID || ParentID >= 0) {
-                const founded = places.find(item=> item.Id === ParentID);
-                result.push(...search(founded.Name))
+                const founded = map[ParentID]
+                result.push(...search(founded.Name));
             }
             result.push(Name)
         }
-
     }
 
     return result;
 }
 
-console.log(search('Ukr'));
+console.log(search('Lvov'));
 console.log(search('Zradovka'));
