@@ -16,12 +16,14 @@ let places = [
 const search = (searchString) => {
     const result = [];
     let map = {}
+    let i = 0
     if(!searchString) return result
 
-    for (const place of places) {
-        const {Id} = place
-        map[Id] = place
-    }
+      while (Object.keys(map).length !== places.length && i !== places.length){
+        const place = places[i]
+        map[place.Id] = place
+        i++
+      }
 
     for (let i = 0; i < places.length; i++) {
         const {Name, ParentID} = places[i]
